@@ -1,4 +1,4 @@
-function [t,y] = ODEE(F,t0,tk,y0,h,h_min,h_max,abserr,relerr)
+function [t,y] = ODEE(F,t_limits,y0,h,h_limits,abserr,relerr)
 
 c1=1/4;
 c2=3/8;
@@ -8,10 +8,10 @@ a3=2/3;
 
 %F=@(t,x)3.*exp(-t)-0.4*x;
 i=1;
-t(1) = t0;
+t(1) = t_limits(1);
 y(1,:) = y0;
 
-while t(i) < tk
+while t(i) < t_limits(2)
     
     k1=F(t(i),y(i,:))*h;
     k2=F(t(i)+a2*h,y(i,:)+a2*k1)*h;
@@ -24,11 +24,11 @@ while t(i) < tk
     t(i+1) = t(i) + h;
     
     if abs(e) > (abserr+relerr*abs(y(i+1,:)))
-        h=max(h_min, h/2.0);
+        h=max(h_limits(1), h/2.0);
         fleg=0;
     end
     if abs(e)<((1/4)*(abserr+relerr*abs(y(i+1,:))))
-           h=min(h_max, 2.0*h);
+           h=min(h_limits(2), 2.0*h);
            %fleg = 0;
      end
 
