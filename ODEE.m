@@ -24,11 +24,17 @@ while t(i) < t_limits(2)
     t(i+1) = t(i) + h;
     
     if abs(e) > (abserr+relerr*abs(y(i+1,:)))
-        h=max(h_limits(1), h/2.0);
+        h = h * 0.5;
+        if h < h_limits(1)
+            h = h_limits(1)
+        end
         fleg=0;
     end
     if abs(e)<((1/4)*(abserr+relerr*abs(y(i+1,:))))
-           h=min(h_limits(2), 2.0*h);
+            h = h*2;
+            if h > h_limits(2)
+                h = h_limits(2)
+            end
            %fleg = 0;
      end
 
