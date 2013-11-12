@@ -26,12 +26,11 @@ while t(i) < tk
     
     if abs(e) > (abserr+relerr*abs(y(i+1)))
         h=max(0.001, h/2.0);
-        disp(h);
-        %fleg=0;
+        fleg=0;
     end
     if abs(e)<((1/4)*(abserr+relerr*abs(y(i+1))))
            h=min(0.01, 2.0*h);
-           fleg = 0;
+           %fleg = 0;
      end
 
     if fleg == 1
